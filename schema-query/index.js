@@ -1,12 +1,24 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
+  # Tipo básico
   scalar Date
+
+  # Tipos criados
+  type Usuario {
+    id: ID!
+    nome: String!
+    email: String!
+    idade: Int
+    salario: Float
+    vip: Boolean
+  }
 
   # Ponto de entrada da API
   type Query {
     ola: String
     currentHour: Date
+    usuarioLogado: Usuario
   }
 `;
 
@@ -18,6 +30,16 @@ const resolvers = {
     currentHour() {
       const date = new Date();
       return date.toTimeString();
+    },
+    usuarioLogado() {
+      return {
+        id: 1,
+        nome: "Ana",
+        email: "anadaweb@gmail.com",
+        idade: 23,
+        salario: 1234.53,
+        vip: true,
+      };
     },
   },
 };
