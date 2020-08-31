@@ -1,30 +1,32 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
+  scalar Date
+
   # Ponto de entrada da API
   type Query {
     ola: String
-    currentHour: String
+    currentHour: Date
   }
-`
+`;
 
 const resolvers = {
   Query: {
     ola() {
-      return 'Olá Mundo!'
+      return "Olá Mundo!";
     },
     currentHour() {
-      const date = new Date()
+      const date = new Date();
       return date.toTimeString();
-    }
-  }
-}
+    },
+  },
+};
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
-})
+  resolvers,
+});
 
-server.listen().then(({url}) => {
-  console.log(`Executando em ${url}`)
-})
+server.listen().then(({ url }) => {
+  console.log(`Executando em ${url}`);
+});
